@@ -1,0 +1,8 @@
+// run a user script file if present
+exec autoexec.cfg
+
+//
+// stuff command line statements
+//
+stuffcmds
+
