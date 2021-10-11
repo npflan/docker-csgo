@@ -141,6 +141,28 @@ data:
       ## Default data collection interval for all inputs
       interval = "60s"
 
+    [[inputs.tail]]
+      files = ["/csgo/csgo/console.log"]
+
+      path_tag = ""
+
+      name_override = "update_available"
+
+      grok_patterns = ["^%{CSGO_MASTER_UPDATE:update:string}$"]
+
+      grok_custom_patterns = '''
+    CSGO_UPDATE (?:Your server needs to be restarted in order to receive the latest update.)
+    CSGO_MASTER_UPDATE \x03(?:MasterRequestRestart)
+    '''
+
+      data_format = "grok"
+
+    [[aggregators.valuecounter]]
+      period = "5m"
+      drop_original = true
+
+      fields = ["update"]
+
     [[inputs.csgo]]
       servers = [
             ["${CSGO_IP_PORT}", "${CSGO_RCON}"]
@@ -149,3 +171,4 @@ data:
     [[outputs.prometheus_client]]
       ## Address to listen on.
       listen = ":9273"
+
