@@ -27,7 +27,7 @@ for a in `ls /home/csgo/server/csgo|grep -v console.log|grep -v addons|grep -v c
     ln -snf /home/csgo/server/csgo/$a /csgo/csgo/$a
 done
 
-GAMESERVERTOKEN=`wget -qO- http://$GSLT_URL/$POD_NAME`
+GAMESERVERTOKEN=`wget -qO- $GSLT_URL/$POD_NAME`
 
 if [ -n "$GAMESERVERTOKEN" ]; then
     echo "Gameservertoken: $GAMESERVERTOKEN"
