@@ -7,51 +7,46 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csgo-test
+  name: csgo-5vs5
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
-      app: csgo-test
-  serviceName: csgo-test
+      app: csgo-5vs5
+  serviceName: csgo-5vs5
   template:
     metadata:
       labels:
-        app: csgo-test
+        app: csgo-5vs5
       annotations:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9273'
     spec:
-      nodeName: "161739"
+      nodeSelector:
+        node-role.kubernetes.io/csgo: csgo
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000
         fsGroup: 1000
-      initContainers:
-      - name: init-myservice
-        image: busybox:1.28
-        command: ['sh', '-c', "rm -f /home/csgo/server/csgo/console.log; ln -s /dev/stdout /home/csgo/server/csgo/console.log"]
-        volumeMounts:
-        - mountPath: /home/csgo/server
-          name: csgo-volume
       containers:
-      - image: timche/csgo
+      - image: npflan/docker-csgo:get5-4.0.3
         resources:
           requests:
             memory: "4G"
             cpu: "2"
           limits:
             cpu: "2"
-        command: ["/home/csgo/server.sh", "start"]
-        name: csgo-test
+        name: csgo
+        tty: true
+        stdin: true
         ports:
         - containerPort: 27015
         - containerPort: 27020
         env:
         - name: CSGO_DISABLE_BOTS
           value: "true"
-        - name: CSGO_GSLT
-          value: "6130C8F3A2D6C94EDF37A66044BA2D1C"
+        - name: GSLT_URL
+          value: http://steam-gameserver-token-api.default.svc.cluster.local/token/730
         - name: CSGO_MAX_PLAYERS
           value: "12"
         - name: CSGO_IP
@@ -61,18 +56,24 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: CSGO_PARAMS
-          #value: "+sv_hibernate_when_empty 0 +log on +sv_log_onefile 1 +sv_logecho 1 +sv_logbans 1 +sv_logfile 1 -condebug -secure"
-          value: "+sv_hibernate_when_empty 0 -condebug -secure"
+          value: "+sv_hibernate_when_empty 0 -conclearlog -condebug -secure"
         volumeMounts:
         - mountPath: /home/csgo/server
           name: csgo-volume
           readOnly: true
-        - mountPath: /home/csgo/server/csgo/logs
-          name: logs-volume
+        - mountPath: /scratch
+          name: csgo-scratch
       - image: telegraf:1.20-alpine
         name: csgo-metrics
         ports:
         - containerPort: 9273
+        resources:
+          requests:
+            memory: "50M"
+            cpu: "100m"
+          limits:
+            memory: "250M"
+            cpu: "100m"
         env:
           - name: CSGO_IP_PORT
             value: "127.0.0.1:27015"
@@ -91,8 +92,10 @@ spec:
       nodeSelector:
         type: csgo
       volumes:
-      - name: logs-volume
-        emptyDir: {}
+      - name: csgo-scratch
+        hostPath:
+          path: /opt/csgo-scratch
+          type: Directory
       - name: csgo-volume
         hostPath:
           # directory location on host
@@ -109,10 +112,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-test
+  name: csgo-5vs5
 spec:
   selector:
-    app: csgo-test
+    app: csgo-5vs5
   ports:
     - name: gametcp
       protocol: TCP
