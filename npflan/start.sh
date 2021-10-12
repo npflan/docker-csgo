@@ -21,6 +21,8 @@ ln -snf /csgo/cfg /csgo/csgo/cfg
 ln -snf /home/csgo/server/srcds_run /csgo/srcds_run
 ln -snf /home/csgo/server/srcds_linux /csgo/srcds_linux
 ln -snf /home/csgo/server/bin /csgo/bin
+ln -snf /home/csgo/server/platform /csgo/platform
+ln -snf /home/csgo/server/steamapps /csgo/steamapps
 
 # Create symlinks to srcds files
 for a in `ls /home/csgo/server/csgo|grep -v console.log|grep -v addons|grep -v cfg`; do
