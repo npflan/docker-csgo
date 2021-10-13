@@ -30,7 +30,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:get5-4.0.5
+      - image: npflan/docker-csgo:get5-4.0.6
         resources:
           requests:
             memory: "4G"
