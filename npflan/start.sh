@@ -50,7 +50,7 @@ if [ -n "$CSGO_PW" ]; then
 fi
 
 if [ -n "$CSGO_HOSTNAME" ]; then
-    additionalParams+=" +hostname $CSGO_HOSTNAME"
+    additionalParams+=" +hostname \"$CSGO_HOSTNAME\""
     additionalParams+=
 fi
 
