@@ -84,6 +84,7 @@ RUN bash -c " \
 FROM vanilla as get5
 
 COPY --from=get5-download /home/csgo/addons/ /csgo/addons
+COPY --from=get5-download /home/csgo/cfg/get5/ /csgo/cfg/get5
 
 # The vdf way of loading sourcemod didn't work, well old school then
 COPY get5/metaplugins.ini /csgo/addons/metamod/
