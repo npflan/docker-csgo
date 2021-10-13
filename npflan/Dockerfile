@@ -42,7 +42,11 @@ FROM vanilla as ebot
 COPY ebot /csgo/addons
 
 
-FROM vanilla as get5
+FROM debian:buster-slim as get5-download
+
+RUN apt-get update && apt-get install -y wget busybox && useradd -m csgo
+
+WORKDIR /home/csgo
 
 ARG mmsource_exact_version="1.11.0"
 ARG METAMOD_BUILD="1145"
@@ -59,17 +63,27 @@ ARG GET5_FILE="get5_0.7.2.zip"
 ARG GET5_APISTATS_TAG="refs/heads/master"
 ARG GET5_APISTATS_FILE="get5_apistats.zip"
 
+ARG STEAMWORKS_VERSION="git132"
+
 RUN bash -c " \
     mmsource_version=\$(echo ${mmsource_exact_version} | cut -f1-2 -d '.'); \
     sourcemod_version=\$(echo ${sourcemod_exact_version} | cut -f1-2 -d '.'); \
     wget -qO- https://mms.alliedmods.net/mmsdrop/\${mmsource_version}/mmsource-${mmsource_exact_version}-git${METAMOD_BUILD}-linux.tar.gz | tar zxf -; \
     wget -qO- https://sm.alliedmods.net/smdrop/\${sourcemod_version}/sourcemod-${sourcemod_exact_version}-git${SOURCEMOD_BUILD}-linux.tar.gz | tar zxf -; \
+    wget -qO- https://users.alliedmods.net/~kyles/builds/SteamWorks/SteamWorks-${STEAMWORKS_VERSION}-linux.tar.gz | tar zxf -; \
     wget -qO- https://github.com/ErikMinekus/sm-ripext/releases/download/${SM_RIPEXT_TAG}/${SM_RIPEXT_FILE} | busybox unzip -; \
     wget -qO- https://github.com/splewis/get5/releases/download/${GET5_TAG}/${GET5_FILE} | busybox unzip -; \
     cp -R get5/* .; rm -rf get5; \
     wget -qO- https://github.com/PhlexPlexico/get5-webapi/releases/download/${GET5_APISTATS_TAG}/${GET5_APISTATS_FILE} | busybox unzip -d addons/sourcemod/plugins -; \
     rm -f addons/metamod/sourcemod.vdf addons/metamod_x64.vdf; \
-    pushd addons/sourcemod/plugins/ && mv -t disabled/ antiflood.smx basechat.smx basecomm.smx basetriggers.smx basevotes.smx clientprefs.smx funcommands.smx funvotes.smx playercommands.smx reservedslots.smx sounds.smx"
+    pushd addons/sourcemod/plugins/ && mv -t disabled/ antiflood.smx basechat.smx basecomm.smx basetriggers.smx basevotes.smx clientprefs.smx funcommands.smx funvotes.smx playercommands.smx reservedslots.smx sounds.smx; \
+    popd; \
+    chmod -R 700 addons/sourcemod/extensions/*; \
+    chown -R csgo:csgo addons"
+
+FROM vanilla as get5
+
+COPY --from=get5-download /home/csgo/addons/ /csgo/addons
 
 # The vdf way of loading sourcemod didn't work, well old school then
 COPY get5/metaplugins.ini /csgo/addons/metamod/
