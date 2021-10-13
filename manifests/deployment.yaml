@@ -7,17 +7,18 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csgo-5vs5
+  name: csgo-5on5
+  namespace: csgo
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: csgo-5vs5
-  serviceName: csgo-5vs5
+      app: csgo-5on5
+  serviceName: csgo-5on5
   template:
     metadata:
       labels:
-        app: csgo-5vs5
+        app: csgo-5on5
       annotations:
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9273'
@@ -29,7 +30,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:get5-4.0.3
+      - image: npflan/docker-csgo:get5-4.0.4
         resources:
           requests:
             memory: "4G"
@@ -45,16 +46,25 @@ spec:
         env:
         - name: CSGO_DISABLE_BOTS
           value: "true"
+        - name: CSGO_HOSTNAME
+          value: "NPF 2022 - 5on5 - Currently not live"
         - name: GSLT_URL
           value: http://steam-gameserver-token-api.default.svc.cluster.local/token/730
         - name: CSGO_MAX_PLAYERS
-          value: "12"
+          value: "14"
         - name: CSGO_IP
           value: "0.0.0.0"
         - name: POD_NAME
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: CSGO_RCON
+          valueFrom:
+            secretKeyRef:
+              name: csgo
+              key: rcon-password
+        - name: CSGO_TV_ENABLE
+          value: "true"
         - name: CSGO_PARAMS
           value: "+sv_hibernate_when_empty 0 -conclearlog -condebug -secure"
         volumeMounts:
@@ -78,7 +88,10 @@ spec:
           - name: CSGO_IP_PORT
             value: "127.0.0.1:27015"
           - name: CSGO_RCON
-            value: "changeme"
+            valueFrom:
+              secretKeyRef:
+                name: csgo
+                key: rcon-password
         volumeMounts:
         - name: csgo-telegraf-config
           mountPath: /etc/telegraf/telegraf.conf
@@ -89,8 +102,6 @@ spec:
         operator: "Equal"
         value: "csgo"
         effect: "NoSchedule"
-      nodeSelector:
-        type: csgo
       volumes:
       - name: csgo-scratch
         hostPath:
@@ -112,10 +123,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-5vs5
+  name: csgo-5on5-0
+  namespace: csgo
 spec:
   selector:
-    app: csgo-5vs5
+    app: csgo-5on5
+    statefulset.kubernetes.io/pod-name: csgo-5vs5-0
   ports:
     - name: gametcp
       protocol: TCP
@@ -138,6 +151,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: csgo-telegraf-config
+  namespace: csgo
 data:
   telegraf.conf: |
     [agent]
