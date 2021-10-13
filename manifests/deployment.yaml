@@ -30,7 +30,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:get5-4.0.4
+      - image: npflan/docker-csgo:get5-4.0.5
         resources:
           requests:
             memory: "4G"
@@ -58,7 +58,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: CSGO_RCON
+        - name: CSGO_RCON_PW
           valueFrom:
             secretKeyRef:
               name: csgo
@@ -87,7 +87,7 @@ spec:
         env:
           - name: CSGO_IP_PORT
             value: "127.0.0.1:27015"
-          - name: CSGO_RCON
+          - name: CSGO_RCON_PW
             valueFrom:
               secretKeyRef:
                 name: csgo
@@ -120,6 +120,7 @@ spec:
             - key: telegraf.conf
               path: telegraf.conf
 ---
+## Repeat as many times as you need
 apiVersion: v1
 kind: Service
 metadata:
@@ -127,8 +128,7 @@ metadata:
   namespace: csgo
 spec:
   selector:
-    app: csgo-5on5
-    statefulset.kubernetes.io/pod-name: csgo-5vs5-0
+    statefulset.kubernetes.io/pod-name: csgo-5on5-0
   ports:
     - name: gametcp
       protocol: TCP
@@ -182,7 +182,7 @@ data:
 
     [[inputs.csgo]]
       servers = [
-            ["${CSGO_IP_PORT}", "${CSGO_RCON}"]
+            ["${CSGO_IP_PORT}", "${CSGO_RCON_PW}"]
       ]
 
     [[outputs.prometheus_client]]
