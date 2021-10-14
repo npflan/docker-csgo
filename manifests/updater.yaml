@@ -24,7 +24,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: csgo-updater
-        image: npflan/docker-csgo:vanilla-4.0.7
+        image: npflan/docker-csgo:vanilla-4.0.8
         command: ["sh", "-c", "/home/csgo/server.sh install; while true; do sleep 86400; done"]
         volumeMounts:
         - mountPath: /home/csgo/server
