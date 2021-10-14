@@ -5,6 +5,7 @@ RUN apt-get update \
     ca-certificates \
     lib32gcc1=1:8.3.0-6 \
     lib32stdc++6=8.3.0-6 \
+    libsdl2-2.0-0 \
     rsync \
     unzip \
     wget \
@@ -21,10 +22,15 @@ USER csgo
 RUN mkdir /home/csgo/Steam && \
     mkdir /home/csgo/server
 
+WORKDIR /home/csgo
+COPY server.sh .
+
 WORKDIR /home/csgo/Steam
 
 RUN wget -qO- https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar zxf - \
-    && /home/csgo/Steam/steamcmd.sh +quit
+    && /home/csgo/Steam/steamcmd.sh +quit \
+    && mkdir -p ~/.steam/sdk32 \
+    && ln -s /home/csgo/Steam/linux32/steamclient.so ~/.steam/sdk32/steamclient.so
 
 WORKDIR /csgo
 
@@ -84,6 +90,7 @@ RUN bash -c " \
 FROM vanilla as get5
 
 COPY --from=get5-download /home/csgo/addons/ /csgo/addons
+COPY --from=get5-download /home/csgo/cfg/sourcemod/ /csgo/cfg/sourcemod/
 COPY --from=get5-download /home/csgo/cfg/get5/ /csgo/cfg/get5
 
 # The vdf way of loading sourcemod didn't work, well old school then
