@@ -1,0 +1,206 @@
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: csgo-test
+#   labels:
+#     app: csgo-test
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: csgo-2on2
+  namespace: csgo
+spec:
+  podManagementPolicy: Parallel
+  replicas: 50
+  selector:
+    matchLabels:
+      app: csgo-2on2
+  serviceName: csgo-2on2
+  template:
+    metadata:
+      labels:
+        app: csgo-2on2
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9273"
+    spec:
+      nodeSelector:
+        node-role.kubernetes.io/csgo: csgo
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - image: npflan/docker-csgo:get5-4.0.7
+        resources:
+          requests:
+            memory: "4G"
+            cpu: "2"
+          limits:
+            cpu: "2"
+            memory: "4G"
+        name: csgo
+        tty: true
+        stdin: true
+        ports:
+        - containerPort: 27015
+        - containerPort: 27020
+        env:
+        - name: CSGO_DISABLE_BOTS
+          value: "true"
+        - name: CSGO_HOSTNAME
+          value: "NPF 2022 - Wingman - Currently not live"
+        - name: GSLT_URL
+          value: http://steam-gameserver-token-api.default.svc.cluster.local/token/730
+        - name: CSGO_MAX_PLAYERS
+          value: "8"
+        # Wingman
+        - name: CSGO_GAME_MODE
+          value: "2"
+        - name: CSGO_MAP
+          value: "de_shortnuke"
+        - name: CSGO_MAP_GROUP
+          value: "mg_de_shortnuke"
+        - name: CSGO_IP
+          value: "0.0.0.0"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: CSGO_RCON_PW
+          valueFrom:
+            secretKeyRef:
+              name: csgo
+              key: rcon-password
+        - name: CSGO_TV_ENABLE
+          value: "true"
+        - name: CSGO_PARAMS
+          value: "+sv_hibernate_when_empty 0 -conclearlog -condebug -secure"
+        volumeMounts:
+        - mountPath: /home/csgo/server
+          name: csgo-volume
+          readOnly: true
+        - mountPath: /scratch
+          name: csgo-scratch
+      - image: telegraf:1.20-alpine
+        name: csgo-metrics
+        ports:
+        - containerPort: 9273
+        resources:
+          requests:
+            memory: "100M"
+            cpu: "100m"
+          limits:
+            memory: "100M"
+            cpu: "100m"
+        env:
+          - name: CSGO_IP_PORT
+            value: "127.0.0.1:27015"
+          - name: CSGO_RCON_PW
+            valueFrom:
+              secretKeyRef:
+                name: csgo
+                key: rcon-password
+        volumeMounts:
+        - name: csgo-telegraf-config
+          mountPath: /etc/telegraf/telegraf.conf
+          subPath: telegraf.conf
+          readOnly: true
+        - name: telegraf-cache
+          mountPath: /.cache
+      tolerations:
+      - key: "type"
+        operator: "Equal"
+        value: "csgo"
+        effect: "NoSchedule"
+      volumes:
+      - name: telegraf-cache
+        emptyDir: {}
+      - name: csgo-scratch
+        hostPath:
+          path: /opt/csgo-scratch
+          type: Directory
+      - name: csgo-volume
+        hostPath:
+          # directory location on host
+          path: /home/npfuser
+          # this field is optional
+          type: Directory
+      - name: csgo-telegraf-config
+        configMap:
+          name: csgo-telegraf-config
+          items:
+            - key: telegraf.conf
+              path: telegraf.conf
+---
+## Repeat as many times as you need
+apiVersion: v1
+kind: Service
+metadata:
+  name: csgo-2on2-0
+  namespace: csgo
+spec:
+  selector:
+    statefulset.kubernetes.io/pod-name: csgo-2on2-0
+  ports:
+    - name: gametcp
+      protocol: TCP
+      port: 27015
+      targetPort: 27015
+    - name: gameudp
+      protocol: UDP
+      port: 27015
+      targetPort: 27015
+    - name: matchandhltvtcp
+      protocol: TCP
+      port: 27020
+      targetPort: 27020
+    - name: matchandhltvudp
+      protocol: UDP
+      port: 27020
+      targetPort: 27020
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: csgo-telegraf-config
+  namespace: csgo
+data:
+  telegraf.conf: |
+    [agent]
+      ## Default data collection interval for all inputs
+      interval = "60s"
+
+    # [[inputs.tail]]
+    #   files = ["/csgo/csgo/console.log"]
+
+    #   path_tag = ""
+
+    #   name_override = "update_available"
+
+    #   grok_patterns = ["^%{CSGO_MASTER_UPDATE:update:string}$"]
+
+    #   grok_custom_patterns = '''
+    # CSGO_UPDATE (?:Your server needs to be restarted in order to receive the latest update.)
+    # CSGO_MASTER_UPDATE \x03(?:MasterRequestRestart)
+    # '''
+
+    #   data_format = "grok"
+
+    # [[aggregators.valuecounter]]
+    #   period = "5m"
+    #   drop_original = true
+
+    #   fields = ["update"]
+
+    [[inputs.csgo]]
+      servers = [
+            ["${CSGO_IP_PORT}", "${CSGO_RCON_PW}"]
+      ]
+
+    [[outputs.prometheus_client]]
+      ## Address to listen on.
+      listen = ":9273"
+      path = "/metrics"
+
