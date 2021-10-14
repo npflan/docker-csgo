@@ -21,8 +21,9 @@ spec:
       labels:
         app: csgo-5on5
       annotations:
-        prometheus.io/scrape: 'true'
-        prometheus.io/port: '9273'
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "9273"
     spec:
       nodeSelector:
         node-role.kubernetes.io/csgo: csgo
@@ -31,13 +32,14 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:get5-4.0.6
+      - image: npflan/docker-csgo:get5-4.0.7
         resources:
           requests:
             memory: "4G"
             cpu: "2"
           limits:
             cpu: "2"
+            memory: "4G"
         name: csgo
         tty: true
         stdin: true
@@ -80,10 +82,10 @@ spec:
         - containerPort: 9273
         resources:
           requests:
-            memory: "50M"
+            memory: "100M"
             cpu: "100m"
           limits:
-            memory: "250M"
+            memory: "100M"
             cpu: "100m"
         env:
           - name: CSGO_IP_PORT
@@ -98,12 +100,16 @@ spec:
           mountPath: /etc/telegraf/telegraf.conf
           subPath: telegraf.conf
           readOnly: true
+        - name: telegraf-cache
+          mountPath: /.cache
       tolerations:
       - key: "type"
         operator: "Equal"
         value: "csgo"
         effect: "NoSchedule"
       volumes:
+      - name: telegraf-cache
+        emptyDir: {}
       - name: csgo-scratch
         hostPath:
           path: /opt/csgo-scratch
@@ -159,27 +165,27 @@ data:
       ## Default data collection interval for all inputs
       interval = "60s"
 
-    [[inputs.tail]]
-      files = ["/csgo/csgo/console.log"]
+    # [[inputs.tail]]
+    #   files = ["/csgo/csgo/console.log"]
 
-      path_tag = ""
+    #   path_tag = ""
 
-      name_override = "update_available"
+    #   name_override = "update_available"
 
-      grok_patterns = ["^%{CSGO_MASTER_UPDATE:update:string}$"]
+    #   grok_patterns = ["^%{CSGO_MASTER_UPDATE:update:string}$"]
 
-      grok_custom_patterns = '''
-    CSGO_UPDATE (?:Your server needs to be restarted in order to receive the latest update.)
-    CSGO_MASTER_UPDATE \x03(?:MasterRequestRestart)
-    '''
+    #   grok_custom_patterns = '''
+    # CSGO_UPDATE (?:Your server needs to be restarted in order to receive the latest update.)
+    # CSGO_MASTER_UPDATE \x03(?:MasterRequestRestart)
+    # '''
 
-      data_format = "grok"
+    #   data_format = "grok"
 
-    [[aggregators.valuecounter]]
-      period = "5m"
-      drop_original = true
+    # [[aggregators.valuecounter]]
+    #   period = "5m"
+    #   drop_original = true
 
-      fields = ["update"]
+    #   fields = ["update"]
 
     [[inputs.csgo]]
       servers = [
@@ -189,4 +195,5 @@ data:
     [[outputs.prometheus_client]]
       ## Address to listen on.
       listen = ":9273"
+      path = "/metrics"
 
