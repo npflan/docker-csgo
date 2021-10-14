@@ -25,6 +25,7 @@ spec:
       containers:
       - name: csgo-updater
         image: npflan/docker-csgo:get5-4.0.7
+        command: ["sh", "-c", "/home/csgo/server.sh install; while true; do sleep 86400; done"]
         volumeMounts:
         - mountPath: /home/csgo/server
           name: csgo-volume
