@@ -7,19 +7,19 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csgo-5on5
+  name: csgo-5on5-tournament
   namespace: csgo
 spec:
   podManagementPolicy: Parallel
-  replicas: 100
+  replicas: 75
   selector:
     matchLabels:
-      app: csgo-5on5
-  serviceName: csgo-5on5
+      app: csgo-5on5-tournament
+  serviceName: csgo-5on5-tournament
   template:
     metadata:
       labels:
-        app: csgo-5on5
+        app: csgo-5on5-tournament
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/path: /metrics
@@ -71,6 +71,10 @@ spec:
         - name: CSGO_PARAMS
           value: "+sv_hibernate_when_empty 0 -conclearlog -condebug -secure"
         volumeMounts:
+        - name: csgo-admin-config
+          mountPath: /csgo/addons/sourcemod/configs/admins_simple.ini
+          subPath: admins_simple.ini
+          readOnly: true
         - mountPath: /home/csgo/server
           name: csgo-volume
           readOnly: true
@@ -126,16 +130,22 @@ spec:
           items:
             - key: telegraf.conf
               path: telegraf.conf
+      - name: csgo-admin-config
+        configMap:
+          name: csgo-tournament
+          items:
+            - key: admins_simple.ini
+              path: admins_simple.ini
 ---
 ## Repeat as many times as you need
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-5on5-0
+  name: csgo-5on5-tournament-0
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-5on5-0
+    statefulset.kubernetes.io/pod-name: csgo-5on5-tournament-0
   ports:
     - name: gametcp
       protocol: TCP

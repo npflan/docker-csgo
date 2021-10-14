@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: csgo-academy
+  namespace: csgo
+data:
+  admins_simple.ini: |
+    // Academy admins
+    // KRISTENSEN
+    "STEAM_0:1:81542348" "z"
+    // Metro
+    "STEAM_0:1:59205677" "z"
+
+    // Server team
+    // Mark
+    "STEAM_0:0:119943" "z"
+    // Nicolai
+    "STEAM_0:0:866497" "z"
+    // Brian
+    "STEAM_0:0:777440" "z"
+    // Martin
+    "STEAM_0:1:23731081" "z"
+    // Kristian
+    "STEAM_0:1:3563023" "z"

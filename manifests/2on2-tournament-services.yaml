@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-0
+  name: csgo-2on2-tournament-0
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-0
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-0
   ports:
     - name: gametcp
       protocol: TCP
@@ -27,11 +27,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-1
+  name: csgo-2on2-tournament-1
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-1
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-1
   ports:
     - name: gametcp
       protocol: TCP
@@ -53,11 +53,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-2
+  name: csgo-2on2-tournament-2
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-2
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-2
   ports:
     - name: gametcp
       protocol: TCP
@@ -79,11 +79,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-3
+  name: csgo-2on2-tournament-3
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-3
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-3
   ports:
     - name: gametcp
       protocol: TCP
@@ -105,11 +105,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-4
+  name: csgo-2on2-tournament-4
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-4
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-4
   ports:
     - name: gametcp
       protocol: TCP
@@ -131,11 +131,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-5
+  name: csgo-2on2-tournament-5
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-5
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-5
   ports:
     - name: gametcp
       protocol: TCP
@@ -157,11 +157,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-6
+  name: csgo-2on2-tournament-6
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-6
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-6
   ports:
     - name: gametcp
       protocol: TCP
@@ -183,11 +183,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-7
+  name: csgo-2on2-tournament-7
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-7
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-7
   ports:
     - name: gametcp
       protocol: TCP
@@ -209,11 +209,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-8
+  name: csgo-2on2-tournament-8
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-8
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-8
   ports:
     - name: gametcp
       protocol: TCP
@@ -235,11 +235,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-9
+  name: csgo-2on2-tournament-9
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-9
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-9
   ports:
     - name: gametcp
       protocol: TCP
@@ -261,11 +261,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-10
+  name: csgo-2on2-tournament-10
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-10
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-10
   ports:
     - name: gametcp
       protocol: TCP
@@ -287,11 +287,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-11
+  name: csgo-2on2-tournament-11
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-11
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-11
   ports:
     - name: gametcp
       protocol: TCP
@@ -313,11 +313,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-12
+  name: csgo-2on2-tournament-12
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-12
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-12
   ports:
     - name: gametcp
       protocol: TCP
@@ -339,11 +339,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-13
+  name: csgo-2on2-tournament-13
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-13
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-13
   ports:
     - name: gametcp
       protocol: TCP
@@ -365,11 +365,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-14
+  name: csgo-2on2-tournament-14
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-14
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-14
   ports:
     - name: gametcp
       protocol: TCP
@@ -391,11 +391,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-15
+  name: csgo-2on2-tournament-15
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-15
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-15
   ports:
     - name: gametcp
       protocol: TCP
@@ -417,11 +417,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-16
+  name: csgo-2on2-tournament-16
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-16
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-16
   ports:
     - name: gametcp
       protocol: TCP
@@ -443,11 +443,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-17
+  name: csgo-2on2-tournament-17
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-17
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-17
   ports:
     - name: gametcp
       protocol: TCP
@@ -469,11 +469,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-18
+  name: csgo-2on2-tournament-18
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-18
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-18
   ports:
     - name: gametcp
       protocol: TCP
@@ -495,11 +495,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-19
+  name: csgo-2on2-tournament-19
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-19
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-19
   ports:
     - name: gametcp
       protocol: TCP
@@ -521,11 +521,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-20
+  name: csgo-2on2-tournament-20
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-20
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-20
   ports:
     - name: gametcp
       protocol: TCP
@@ -547,11 +547,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-21
+  name: csgo-2on2-tournament-21
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-21
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-21
   ports:
     - name: gametcp
       protocol: TCP
@@ -573,11 +573,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-22
+  name: csgo-2on2-tournament-22
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-22
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-22
   ports:
     - name: gametcp
       protocol: TCP
@@ -599,11 +599,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-23
+  name: csgo-2on2-tournament-23
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-23
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-23
   ports:
     - name: gametcp
       protocol: TCP
@@ -625,11 +625,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-24
+  name: csgo-2on2-tournament-24
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-24
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-24
   ports:
     - name: gametcp
       protocol: TCP
@@ -651,11 +651,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-25
+  name: csgo-2on2-tournament-25
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-25
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-25
   ports:
     - name: gametcp
       protocol: TCP
@@ -677,11 +677,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-26
+  name: csgo-2on2-tournament-26
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-26
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-26
   ports:
     - name: gametcp
       protocol: TCP
@@ -703,11 +703,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-27
+  name: csgo-2on2-tournament-27
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-27
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-27
   ports:
     - name: gametcp
       protocol: TCP
@@ -729,11 +729,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-28
+  name: csgo-2on2-tournament-28
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-28
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-28
   ports:
     - name: gametcp
       protocol: TCP
@@ -755,11 +755,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-29
+  name: csgo-2on2-tournament-29
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-29
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-29
   ports:
     - name: gametcp
       protocol: TCP
@@ -781,11 +781,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-30
+  name: csgo-2on2-tournament-30
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-30
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-30
   ports:
     - name: gametcp
       protocol: TCP
@@ -807,11 +807,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-31
+  name: csgo-2on2-tournament-31
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-31
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-31
   ports:
     - name: gametcp
       protocol: TCP
@@ -833,11 +833,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-32
+  name: csgo-2on2-tournament-32
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-32
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-32
   ports:
     - name: gametcp
       protocol: TCP
@@ -859,11 +859,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-33
+  name: csgo-2on2-tournament-33
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-33
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-33
   ports:
     - name: gametcp
       protocol: TCP
@@ -885,11 +885,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-34
+  name: csgo-2on2-tournament-34
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-34
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-34
   ports:
     - name: gametcp
       protocol: TCP
@@ -911,11 +911,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-35
+  name: csgo-2on2-tournament-35
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-35
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-35
   ports:
     - name: gametcp
       protocol: TCP
@@ -937,11 +937,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-36
+  name: csgo-2on2-tournament-36
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-36
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-36
   ports:
     - name: gametcp
       protocol: TCP
@@ -963,11 +963,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-37
+  name: csgo-2on2-tournament-37
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-37
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-37
   ports:
     - name: gametcp
       protocol: TCP
@@ -989,11 +989,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-38
+  name: csgo-2on2-tournament-38
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-38
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-38
   ports:
     - name: gametcp
       protocol: TCP
@@ -1015,11 +1015,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-39
+  name: csgo-2on2-tournament-39
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-39
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-39
   ports:
     - name: gametcp
       protocol: TCP
@@ -1041,11 +1041,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-40
+  name: csgo-2on2-tournament-40
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-40
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-40
   ports:
     - name: gametcp
       protocol: TCP
@@ -1067,11 +1067,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-41
+  name: csgo-2on2-tournament-41
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-41
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-41
   ports:
     - name: gametcp
       protocol: TCP
@@ -1093,11 +1093,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-42
+  name: csgo-2on2-tournament-42
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-42
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-42
   ports:
     - name: gametcp
       protocol: TCP
@@ -1119,11 +1119,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-43
+  name: csgo-2on2-tournament-43
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-43
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-43
   ports:
     - name: gametcp
       protocol: TCP
@@ -1145,11 +1145,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-44
+  name: csgo-2on2-tournament-44
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-44
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-44
   ports:
     - name: gametcp
       protocol: TCP
@@ -1171,11 +1171,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-45
+  name: csgo-2on2-tournament-45
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-45
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-45
   ports:
     - name: gametcp
       protocol: TCP
@@ -1197,11 +1197,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-46
+  name: csgo-2on2-tournament-46
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-46
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-46
   ports:
     - name: gametcp
       protocol: TCP
@@ -1223,11 +1223,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-47
+  name: csgo-2on2-tournament-47
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-47
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-47
   ports:
     - name: gametcp
       protocol: TCP
@@ -1249,11 +1249,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-48
+  name: csgo-2on2-tournament-48
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-48
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-48
   ports:
     - name: gametcp
       protocol: TCP
@@ -1275,11 +1275,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: csgo-2on2-49
+  name: csgo-2on2-tournament-49
   namespace: csgo
 spec:
   selector:
-    statefulset.kubernetes.io/pod-name: csgo-2on2-49
+    statefulset.kubernetes.io/pod-name: csgo-2on2-tournament-49
   ports:
     - name: gametcp
       protocol: TCP
