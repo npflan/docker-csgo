@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: csgo-updater
-  # namespace: kube-system
+  namespace: operations
   labels:
     k8s-app: csgo-updater
 spec:
