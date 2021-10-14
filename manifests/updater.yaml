@@ -14,12 +14,14 @@ spec:
       labels:
         name: csgo-updater
     spec:
+      nodeSelector:
+        node-role.kubernetes.io/csgo: csgo
       tolerations:
       # this toleration is to have the daemonset runnable on master nodes
       # remove it if your masters can't run pods
-      # - key: node-role.kubernetes.io/master
-      #   operator: Exists
-      #   effect: NoSchedule
+      - key: node-role.kubernetes.io/operations
+        operator: Exists
+        effect: NoSchedule
       containers:
       - name: csgo-updater
         image: timche/csgo

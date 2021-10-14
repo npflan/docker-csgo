@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{NAME}}-{{ITERATOR}}
+  namespace: csgo
+spec:
+  selector:
+    statefulset.kubernetes.io/pod-name: {{NAME}}-{{ITERATOR}}
+  ports:
+    - name: gametcp
+      protocol: TCP
+      port: 27015
+      targetPort: 27015
+    - name: gameudp
+      protocol: UDP
+      port: 27015
+      targetPort: 27015
+    - name: matchandhltvtcp
+      protocol: TCP
+      port: 27020
+      targetPort: 27020
+    - name: matchandhltvudp
+      protocol: UDP
+      port: 27020
+      targetPort: 27020
+{{! 0..99 | % {ConvertTo-PoshstacheTemplate -InputFile .\service-template.yaml -ParametersObject "{NAME:'csgo-5on5',ITERATOR:'$_'}"} | % {$_+'---'} > 5on5-services.yaml }}
