@@ -1,0 +1,33 @@
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: csgo-5on5-tournament-pdb
+  namespace: csgo
+spec:
+  maxUnavailable: 20
+  selector:
+    matchLabels:
+      app: csgo-5on5-tournament
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: csgo-2on2-tournament-pdb
+  namespace: csgo
+spec:
+  maxUnavailable: 20
+  selector:
+    matchLabels:
+      app: csgo-2on2-tournament
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: csgo-5on5-academy-pdb
+  namespace: csgo
+spec:
+  maxUnavailable: 20
+  selector:
+    matchLabels:
+      app: csgo-5on5-academy

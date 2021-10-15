@@ -32,7 +32,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:get5-4.0.9
+      - image: npflan/docker-csgo:ebot-4.0.9
         resources:
           requests:
             memory: "4G"
@@ -78,10 +78,6 @@ spec:
         - name: CSGO_PARAMS
           value: "+sv_hibernate_when_empty 0 -conclearlog -condebug -secure"
         volumeMounts:
-        - name: csgo-admin-config
-          mountPath: /csgo/addons/sourcemod/configs/admins_simple.ini
-          subPath: admins_simple.ini
-          readOnly: true
         - mountPath: /home/csgo/server
           name: csgo-volume
           readOnly: true
@@ -137,12 +133,6 @@ spec:
           items:
             - key: telegraf.conf
               path: telegraf.conf
-      - name: csgo-admin-config
-        configMap:
-          name: csgo-tournament
-          items:
-            - key: admins_simple.ini
-              path: admins_simple.ini
 ---
 ## Repeat as many times as you need
 apiVersion: v1
