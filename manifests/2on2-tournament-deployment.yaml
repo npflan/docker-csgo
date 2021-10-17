@@ -32,7 +32,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:ebot-4.0.9
+      - image: npflan/docker-csgo:get5-4.0.9
         resources:
           requests:
             memory: "4G"
@@ -52,7 +52,7 @@ spec:
         - name: CSGO_HOSTNAME
           value: "NPF 2022 - Wingman - Currently not live"
         - name: GSLT_URL
-          value: http://steam-gameserver-token-api.default.svc.cluster.local/token/730
+          value: http://steam-gameserver-token-api.operations/token/730
         - name: CSGO_MAX_PLAYERS
           value: "8"
         # Wingman

@@ -11,7 +11,7 @@ metadata:
   namespace: csgo
 spec:
   podManagementPolicy: Parallel
-  replicas: 75
+  replicas: 5
   selector:
     matchLabels:
       app: csgo-5on5-tournament
@@ -32,7 +32,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
       containers:
-      - image: npflan/docker-csgo:get5-4.0.9
+      - image: npflan/docker-csgo:get5-4.0.10
         resources:
           requests:
             memory: "4G"
@@ -52,7 +52,7 @@ spec:
         - name: CSGO_HOSTNAME
           value: "NPF 2022 - 5on5 - Currently not live"
         - name: GSLT_URL
-          value: http://steam-gameserver-token-api.default.svc.cluster.local/token/730
+          value: http://steam-gameserver-token-api.operations/token/730
         - name: CSGO_MAX_PLAYERS
           value: "14"
         - name: CSGO_IP

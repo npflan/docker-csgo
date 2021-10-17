@@ -52,7 +52,7 @@ spec:
         - name: CSGO_HOSTNAME
           value: "NPF 2022 - Wingman - Currently not live"
         - name: GSLT_URL
-          value: http://steam-gameserver-token-api.default.svc.cluster.local/token/730
+          value: http://steam-gameserver-token-api.operations/token/730
         - name: CSGO_MAX_PLAYERS
           value: "8"
         # Wingman
